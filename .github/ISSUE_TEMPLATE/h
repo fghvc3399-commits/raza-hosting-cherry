@@ -1,0 +1,26 @@
+name: Host Website
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create site folder
+        run: |
+          NAME=$(jq -r '.issue.body' "$GITHUB_EVENT_PATH" | sed -n 's/.*Site Name: //p' | head -n1)
+          CODE=$(jq -r '.issue.body' "$GITHUB_EVENT_PATH" | sed -n '/Paste HTML Code/,$p' | tail -n +2)
+          mkdir -p user-sites/$NAME
+          echo "$CODE" > user-sites/$NAME/index.html
+
+      - name: Commit & Push
+        run: |
+          git config user.name \"auto-host\"
+          git config user.email \"host@bot.com\"
+          git add .
+          git commit -m \"Host $NAME\"
+          git push
