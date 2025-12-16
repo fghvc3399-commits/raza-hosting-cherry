@@ -1,0 +1,19 @@
+name: Host My Website
+description: Paste your HTML to host
+title: "[HOST]: "
+body:
+  - type: input
+    id: username
+    attributes:
+      label: Site Name
+      placeholder: mysite
+    validations:
+      required: true
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Paste HTML Code
+      placeholder: <html>...</html>
+    validations:
+      required: true
