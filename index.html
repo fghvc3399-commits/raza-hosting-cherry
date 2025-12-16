@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeDrop – Paste Your Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .card {
+      width: 95%;
+      max-width: 800px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    p {
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 15px;
+      color: #00ffcc;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+    }
+    textarea::placeholder { color: #aaa; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .paste {
+      background: linear-gradient(135deg, #00ffcc, #00bfa5);
+      color: #000;
+    }
+    .paste:hover { opacity: 0.85; }
+    .clear {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+    .clear:hover { background: rgba(255,255,255,0.25); }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💎 CodeDrop</h1>
+    <p>Paste your website code & publish it instantly — free hosting style</p>
+
+    <textarea id="code" placeholder="Paste your FULL HTML website code here..."></textarea>
+
+    <input id="siteName" placeholder="Enter site name (e.g. mysite)" style="width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;outline:none;background:rgba(0,0,0,0.5);color:#fff;">
+
+    <div class="actions">
+      <button class="paste" onclick="publishSite()">Publish</button>
+      <button class="clear" onclick="clearCode()">Clear</button>
+    </div>
+
+    <footer>Made with ❤️ for developers</footer>
+  </div>
+
+  <script>
+function publishSite() {
+  const code = document.getElementById('code').value;
+  const name = document.getElementById('siteName').value.trim();
+
+  if (!code || !name) {
+    alert('Code aur site name dono zaroori hain');
+    return;
+  }
+
+  const win = window.open('', '_blank');
+  win.document.open();
+  win.document.write(code);
+  win.document.close();
+
+  alert('🎉 Your site is live (preview). Real hosting ke liye Cloudflare Pages use karein.');
+}
+function clearCode() {
+  document.getElementById('code').value = '';
+}
+</script>
+</body>
+</html>
